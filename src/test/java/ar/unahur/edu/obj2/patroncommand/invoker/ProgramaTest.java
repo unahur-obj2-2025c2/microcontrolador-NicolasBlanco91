@@ -175,7 +175,6 @@ public class ProgramaTest {
         Microcontrolador micro = new Microcontrolador();
         micro.reset();
 
-        // Cuerpo: A = A - 1 (simulado con SWAP + LODV(-1) + ADD)
         List<IOperable> cuerpo = Arrays.asList(
                 new Swap(),
                 new Lodv(-1),

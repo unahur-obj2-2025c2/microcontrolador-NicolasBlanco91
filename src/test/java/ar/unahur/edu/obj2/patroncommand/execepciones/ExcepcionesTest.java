@@ -23,7 +23,7 @@ public class ExcepcionesTest {
     void testLodFueraDeRangoInferior() {
         Lod lodNegativo = new Lod(-1);
         assertThrows(FueraDeRangoDeMemoriaException.class, () -> lodNegativo.execute(micro));
-        assertEquals(0, micro.getProgramCounter(), "El PC no debe avanzar tras error");
+        assertEquals(0, micro.getProgramCounter());
     }
 
     @Test
@@ -53,14 +53,11 @@ public class ExcepcionesTest {
     void testProgramaSeDetieneAlFallar() {
         Programa p = new Programa();
         p.agregarOperacionLodv(123);
-        p.agregarOperacionStr(2048); // Fuera de rango
-        p.agregarOperacionSwap();    // No debería ejecutarse
+        p.agregarOperacionStr(2048); 
+        p.agregarOperacionSwap();  
 
         assertThrows(FueraDeRangoDeMemoriaException.class, () -> p.run(micro));
-
-        // PC debe quedarse en la instrucción que falló
         assertEquals(1, micro.getProgramCounter());
-        // Swap no debe haberse ejecutado
         assertEquals(123, micro.getAcumuladorA());
         assertEquals(0, micro.getAcumuladorB());
     }
